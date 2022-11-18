@@ -1,15 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Projects.css';
+import React, { useEffect, useState } from "react";
+import "./Projects.css";
+import { Box } from "@mui/system";
 
-const Projects = () => (
-  <div className="Projects">
-    Projects Component
-  </div>
-);
+const Projects = ({ callback }) => {
+  let [projects, setProjects] = useState([{ id: 1, name: "" }]);
 
-Projects.propTypes = {};
+  useEffect((callback) => {
+    callback("http://127.0.0.1:8000/api/projects", setProjects).catch(
+      console.error
+    );
+  }, []);
 
-Projects.defaultProps = {};
+  return (
+    <div className="Projects">
+      <Box sx={{ p: 2 }}></Box>
+    </div>
+  );
+};
 
 export default Projects;

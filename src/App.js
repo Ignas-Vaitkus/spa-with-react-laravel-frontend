@@ -5,6 +5,14 @@ import { Box, Tab, Tabs } from "@mui/material";
 import Projects from "./components/Projects/Projects";
 import Employees from "./components/Employees/Employees";
 
+const fetchData = async (url, setValue) => {
+  const response = await fetch(url);
+
+  const objects = await response.json();
+
+  setValue(objects);
+};
+
 function App() {
   const [tabValue, steTabValue] = React.useState(0);
 
@@ -26,8 +34,11 @@ function App() {
         <Routes>
           <Route path="" element={<Navigate to="/projects" />} />
           <Route path="/" element={<Navigate to="/projects" />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/employees" element={<Employees />} />
+          <Route path="/projects" element={<Projects callback={fetchData} />} />
+          <Route
+            path="/employees"
+            element={<Employees callback={fetchData} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
