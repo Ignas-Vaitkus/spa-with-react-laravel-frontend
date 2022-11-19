@@ -24,8 +24,8 @@ const StickyTable = ({ columns, rows }) => {
 
   return (
     <div className="StickyTable">
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+      <Paper sx={{ overflow: "hidden", m: 1 }}>
+        <TableContainer sx={{ maxHeight: 1500 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
