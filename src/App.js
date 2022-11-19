@@ -13,6 +13,48 @@ const fetchData = async (url, setValue) => {
   setValue(objects);
 };
 
+const postData = async (url, data = {}) => {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
+
+const putData = async (url, data = {}) => {
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
+
+const patchData = async (url) => {
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};
+
+const deleteData = async (url) => {
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};
+
 function App() {
   const [tabValue, steTabValue] = React.useState(0);
 
@@ -34,10 +76,29 @@ function App() {
         <Routes>
           <Route path="" element={<Navigate to="/projects" />} />
           <Route path="/" element={<Navigate to="/projects" />} />
-          <Route path="/projects" element={<Projects callback={fetchData} />} />
+          <Route
+            path="/projects"
+            element={
+              <Projects
+                get={fetchData}
+                post={postData}
+                put={putData}
+                patch={patchData}
+                del={deleteData}
+              />
+            }
+          />
           <Route
             path="/employees"
-            element={<Employees callback={fetchData} />}
+            element={
+              <Employees
+                get={fetchData}
+                post={postData}
+                put={putData}
+                patch={patchData}
+                del={deleteData}
+              />
+            }
           />
         </Routes>
       </BrowserRouter>
