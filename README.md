@@ -2,7 +2,7 @@
 
 This application allows the user to create, delete and edit entries in project and employee tables. Each employee can be assigned to a project.
 
-## Requirements
+## Required packages
 
 - Node Package Manager
 - Composer dependency manager
@@ -17,7 +17,7 @@ This application allows the user to create, delete and edit entries in project a
 
 ```
 composer install
-php artisan migrate:fresh --seed
+php artisan migrate:fresh --seed --seeder=ProjectEmployeeSeeder
 ```
 
 - Run the following command in the root frontend folder.
