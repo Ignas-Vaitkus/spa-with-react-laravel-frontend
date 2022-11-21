@@ -6,7 +6,6 @@ import "./Projects.css";
 const columns = [
   { id: "name", label: "Project Name", minWidth: 170 },
   { id: "employees_names", label: "Employees", minWidth: 300 },
-  { id: "actions", label: "", minWidth: 30 },
 ];
 
 const Projects = ({ get, post, put, patch, del }) => {
@@ -35,11 +34,23 @@ const Projects = ({ get, post, put, patch, del }) => {
       name: newProject,
     }).catch(console.error);
 
+    //Adding from existing object array after getting 200 response would be faster, however an id of new addition would be needed
+
     await get("http://127.0.0.1:8000/api/project-employee", setProjects).catch(
       console.error
     );
 
     setNewProject("");
+  };
+
+  const deleteProjectHandler = async (id) => {
+    await del("http://127.0.0.1:8000/api/projects/" + id).catch(console.error);
+
+    //Deleting from existing object array after getting 200 response would be faster
+
+    await get("http://127.0.0.1:8000/api/project-employee", setProjects).catch(
+      console.error
+    );
   };
 
   const changeHandler = (event) => {
@@ -52,6 +63,7 @@ const Projects = ({ get, post, put, patch, del }) => {
         {...{
           columns: columns,
           rows: projects,
+          del: deleteProjectHandler,
         }}
       />
 

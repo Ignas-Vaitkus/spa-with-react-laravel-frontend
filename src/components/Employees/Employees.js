@@ -6,7 +6,6 @@ import "./Employees.css";
 const columns = [
   { id: "first_name", label: "First Name", minWidth: 170 },
   { id: "last_name", label: "Last Name", minWidth: 300 },
-  { id: "actions", label: "", minWidth: 30 },
 ];
 
 const Employees = ({ get, post, put, patch, del }) => {
@@ -42,12 +41,21 @@ const Employees = ({ get, post, put, patch, del }) => {
     );
   };
 
+  const deleteEmployeeHandler = async (id) => {
+    await del("http://127.0.0.1:8000/api/employees/" + id).catch(console.error);
+
+    await get("http://127.0.0.1:8000/api/employees", setEmployees).catch(
+      console.error
+    );
+  };
+
   return (
     <div className="Projects">
       <StickyTable
         {...{
           columns: columns,
           rows: employees,
+          del: deleteEmployeeHandler,
         }}
       />
       <form onSubmit={addEmployeeHandler}>
@@ -78,7 +86,7 @@ const Employees = ({ get, post, put, patch, del }) => {
               })
             }
           />
-          <Button variant="outlined" type="submit" sx={{}}>
+          <Button variant="outlined" type="submit">
             Submit
           </Button>
         </Card>

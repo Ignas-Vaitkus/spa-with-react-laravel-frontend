@@ -8,8 +8,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { Button } from "@mui/material";
 
-const StickyTable = ({ columns, rows }) => {
+const StickyTable = ({ columns, rows, del }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -20,6 +21,10 @@ const StickyTable = ({ columns, rows }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const deleteHandler = (event) => {
+    del(event.target.getAttribute("id"));
   };
 
   return (
@@ -38,6 +43,7 @@ const StickyTable = ({ columns, rows }) => {
                     {column.label}
                   </TableCell>
                 ))}
+                <TableCell key={"Actions"}>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -56,6 +62,21 @@ const StickyTable = ({ columns, rows }) => {
                           </TableCell>
                         );
                       })}
+                      <TableCell key={"Actions"}>
+                        {() => {
+                          if (row.first_name != null) {
+                            return <Button>Assign</Button>;
+                          }
+                        }}
+                        <Button onClick>Edit</Button>
+                        <Button
+                          id={row.id}
+                          color="error"
+                          onClick={deleteHandler}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
