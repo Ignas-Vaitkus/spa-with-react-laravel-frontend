@@ -63,11 +63,7 @@ const StickyTable = ({ columns, rows, del }) => {
                         );
                       })}
                       <TableCell key={"Actions"}>
-                        {() => {
-                          if (row.first_name != null) {
-                            return <Button>Assign</Button>;
-                          }
-                        }}
+                        {row.first_name ? <Button>Assign</Button> : null}
                         <Button onClick>Edit</Button>
                         <Button
                           id={row.id}
