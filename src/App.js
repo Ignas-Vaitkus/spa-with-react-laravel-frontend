@@ -79,25 +79,13 @@ function App() {
           <Route
             path="/projects"
             element={
-              <Projects
-                get={fetchData}
-                post={postData}
-                put={putData}
-                patch={patchData}
-                del={deleteData}
-              />
+              <Projects get={fetchData} post={postData} del={deleteData} />
             }
           />
           <Route
             path="/employees"
             element={
-              <Employees
-                get={fetchData}
-                post={postData}
-                put={putData}
-                patch={patchData}
-                del={deleteData}
-              />
+              <Employees get={fetchData} post={postData} del={deleteData} />
             }
           />
         </Routes>
@@ -105,5 +93,8 @@ function App() {
     </div>
   );
 }
+
+// put={putData}
+// patch={patchData}
 
 export default App;

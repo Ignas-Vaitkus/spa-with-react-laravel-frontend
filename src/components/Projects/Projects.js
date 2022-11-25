@@ -8,7 +8,7 @@ const columns = [
   { id: "employees_names", label: "Employees", minWidth: 300 },
 ];
 
-const Projects = ({ get, post, put, patch, del }) => {
+const Projects = ({ get, post, del }) => {
   const [projects, setProjects] = useState([
     { id: 1, name: "", employees_names: "" },
   ]);
