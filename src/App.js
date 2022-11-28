@@ -4,6 +4,7 @@ import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import { Box, Tab, Tabs } from "@mui/material";
 import Projects from "./components/Projects/Projects";
 import Employees from "./components/Employees/Employees";
+import Project from "./components/Project/Project";
 
 const fetchData = async (url, setValue) => {
   const response = await fetch(url);
@@ -82,6 +83,7 @@ function App() {
               <Projects get={fetchData} post={postData} del={deleteData} />
             }
           />
+          <Route path="/project/:id" element={<Project />} />
           <Route
             path="/employees"
             element={
@@ -94,7 +96,7 @@ function App() {
   );
 }
 
-// put={putData}
+//
 // patch={patchData}
 
 export default App;
