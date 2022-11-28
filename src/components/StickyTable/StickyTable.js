@@ -9,10 +9,12 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const StickyTable = ({ columns, rows, del }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const navigate = useNavigate();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -25,6 +27,14 @@ const StickyTable = ({ columns, rows, del }) => {
 
   const deleteHandler = (event) => {
     del(event.target.getAttribute("id"));
+  };
+
+  const navigateHandler = (path) => {
+    const callback = (event) => {
+      navigate(path);
+    };
+
+    return callback;
   };
 
   return (
@@ -64,7 +74,15 @@ const StickyTable = ({ columns, rows, del }) => {
                       })}
                       <TableCell key={"Actions"}>
                         {row.first_name ? <Button>Assign</Button> : null}
-                        <Button onClick>Edit</Button>
+                        <Button
+                          onClick={
+                            row.first_name
+                              ? navigateHandler("/employee/" + row.id)
+                              : navigateHandler("/project/" + row.id)
+                          }
+                        >
+                          Edit
+                        </Button>
                         <Button
                           id={row.id}
                           color="error"
