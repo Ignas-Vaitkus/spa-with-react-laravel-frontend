@@ -6,7 +6,7 @@ import { Card, TextField, Button } from "@mui/material";
 const Project = ({ values }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [newProject, setNewProject] = useState("");
+  const [newProject, setNewProject] = useState({ name: "" });
 
   useEffect(() => {
     const get = async () => {
@@ -20,7 +20,7 @@ const Project = ({ values }) => {
 
         const data = await response.json();
 
-        setNewProject(data.name);
+        setNewProject(data);
       }
     };
 
@@ -28,7 +28,7 @@ const Project = ({ values }) => {
   }, []);
 
   const changeHandler = (event) => {
-    setNewProject(event.target.value);
+    setNewProject({ name: event.target.value });
   };
 
   const submitProjectHandler = () => {
@@ -43,14 +43,19 @@ const Project = ({ values }) => {
     const callback = async (event) => {
       event.preventDefault();
 
+      console.log(JSON.stringify(newProject));
+
       const response = await fetch(url, {
         method: method,
-        body: JSON.stringify({ name: newProject }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProject),
       });
 
       console.log(response);
 
-      // navigate("/projects");
+      navigate("/projects");
     };
     return callback;
   };
@@ -65,7 +70,7 @@ const Project = ({ values }) => {
             id="outlined-basic"
             label={id ? "Project Name" : "New Project"}
             variant="outlined"
-            value={newProject}
+            value={newProject.name}
             onChange={changeHandler}
           />
           <Button variant="outlined" type="submit">
