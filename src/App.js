@@ -5,6 +5,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 import Projects from "./components/Projects/Projects";
 import Employees from "./components/Employees/Employees";
 import Project from "./components/Project/Project";
+import Employee from "./components/Employee/Employee";
 
 const fetchData = async (url, setValue) => {
   const response = await fetch(url);
@@ -84,6 +85,7 @@ function App() {
             }
           />
           <Route path="/project/:id" element={<Project />} />
+          <Route path="/employee/:id" element={<Employee />} />
           <Route
             path="/employees"
             element={
