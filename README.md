@@ -1,6 +1,6 @@
 # CRUD App with React Frontend and Laravel API
 
-This application allows the user to create, delete and edit entries in project and employee tables. The assignment of employees is yet to be implemented.
+This application allows the user to create, delete and edit entries in project and employee tables. Moreover, the user can assign employees to projects.
 
 ## Required packages
 
