@@ -28,7 +28,7 @@ const Employee = ({ values }) => {
     };
 
     get();
-  }, []);
+  }, [id]);
 
   const firstNameChangehandler = (event) => {
     setNewEmployee({ ...newEmployee, first_name: event.target.value });

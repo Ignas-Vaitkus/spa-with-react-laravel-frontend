@@ -22,7 +22,7 @@ const AssignTable = ({ get, post }) => {
 
   useEffect(() => {
     get("http://127.0.0.1:8000/api/available/projects/" + id, setRows);
-  }, []);
+  }, [get, id]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -25,7 +25,7 @@ const Project = ({ values }) => {
     };
 
     get();
-  }, []);
+  }, [id]);
 
   const changeHandler = (event) => {
     setNewProject({ name: event.target.value });
