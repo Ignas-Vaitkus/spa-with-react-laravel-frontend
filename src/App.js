@@ -6,6 +6,7 @@ import Projects from "./components/Projects/Projects";
 import Employees from "./components/Employees/Employees";
 import Project from "./components/Project/Project";
 import Employee from "./components/Employee/Employee";
+import AssignTable from "./components/AssignTable/AssignTable";
 
 const fetchData = async (url, setValue) => {
   const response = await fetch(url);
@@ -58,10 +59,10 @@ const deleteData = async (url) => {
 };
 
 function App() {
-  const [tabValue, steTabValue] = React.useState(0);
+  const [tabValue, setTabValue] = React.useState(0);
 
   const handleTabChange = (event, newValue) => {
-    steTabValue(newValue);
+    setTabValue(newValue);
   };
 
   return (
@@ -91,6 +92,10 @@ function App() {
             element={
               <Employees get={fetchData} post={postData} del={deleteData} />
             }
+          />
+          <Route
+            path="/employee/assign/:id"
+            element={<AssignTable get={fetchData} post={postData} />}
           />
         </Routes>
       </BrowserRouter>

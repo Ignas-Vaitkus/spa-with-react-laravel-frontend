@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./StickyTable.css";
+import React, { useEffect, useState } from "react";
+import "./AssignTable.css";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,12 +9,20 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const StickyTable = ({ columns, rows, del }) => {
+const columns = [{ id: "name", label: "Project Name", minWidth: 170 }];
+
+const AssignTable = ({ get, post }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rows, setRows] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    get("http://127.0.0.1:8000/api/available/projects/" + id, setRows);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -25,13 +33,10 @@ const StickyTable = ({ columns, rows, del }) => {
     setPage(0);
   };
 
-  const deleteHandler = (event) => {
-    del(event.target.getAttribute("id"));
-  };
-
-  const navigateHandler = (path) => {
+  const assignHandler = (projectId) => {
     const callback = (event) => {
-      navigate(path);
+      post(`http://127.0.0.1:8000/api/employee/${id}/project/${projectId}`);
+      navigate("/projects");
     };
 
     return callback;
@@ -73,31 +78,7 @@ const StickyTable = ({ columns, rows, del }) => {
                         );
                       })}
                       <TableCell key={"Actions"}>
-                        {row.first_name ? (
-                          <Button
-                            onClick={navigateHandler(
-                              "/employee/assign/" + row.id
-                            )}
-                          >
-                            Assign
-                          </Button>
-                        ) : null}
-                        <Button
-                          onClick={
-                            row.first_name
-                              ? navigateHandler("/employee/" + row.id)
-                              : navigateHandler("/project/" + row.id)
-                          }
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          id={row.id}
-                          color="error"
-                          onClick={deleteHandler}
-                        >
-                          Delete
-                        </Button>
+                        <Button onClick={assignHandler(row.id)}>Assign</Button>
                       </TableCell>
                     </TableRow>
                   );
@@ -119,4 +100,4 @@ const StickyTable = ({ columns, rows, del }) => {
   );
 };
 
-export default StickyTable;
+export default AssignTable;
